@@ -1,0 +1,17 @@
+type project
+authors fc1943s
+language F#
+tags fsharp, fable
+repositoryType git
+repositoryUrl https://github.com/fc1943s/FsUi
+include-pdbs true
+include-referenced-projects true
+files
+    *.fsproj ==> fable
+    src/*.fs ==> fable/src
+    src/Bindings/*.fs ==> fable/src/Bindings
+    src/State/Atoms/*.fs ==> fable/src/State/Atoms
+    src/State/Selectors/*.fs ==> fable/src/State/Selectors
+    src/Hooks/*.fs ==> fable/src/Hooks
+    src/Components/*.fs ==> fable/src/Components
+    src/Tests/*.fs ==> fable/src/Tests
