@@ -10,6 +10,7 @@ files
     *.fsproj ==> fable
     src/*.fs ==> fable/src
     src/Bindings/*.fs ==> fable/src/Bindings
+    src/Bindings/Vendor/*.fs ==> fable/src/Bindings/Vendor
     src/State/Atoms/*.fs ==> fable/src/State/Atoms
     src/State/Selectors/*.fs ==> fable/src/State/Selectors
     src/Hooks/*.fs ==> fable/src/Hooks
