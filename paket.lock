@@ -153,7 +153,7 @@ NUGET
       FsCore
       FSharp.Core (>= 5.0 < 6.0)
       Thoth.Json (>= 6.0 < 7.0)
-    FsStore (0.0.1-alpha.2)
+    FsStore (0.2.0-alpha.1)
       Fable.SignalR (>= 0.11 < 1.0)
       FSharp.Core (>= 5.0 < 6.0)
       FsJs

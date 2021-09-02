@@ -1,10 +1,10 @@
 {
-  "name": "fsstore",
-  "displayName": "FsStore",
+  "name": "fsui",
+  "displayName": "FsUi",
   "version": "0.0.1",
   "repository": {
     "type": "git",
-    "url": "https://github.com/fc1943s/FsStore.git"
+    "url": "https://github.com/fc1943s/FsUi.git"
   },
   "author": "fc1943s",
   "private": true,

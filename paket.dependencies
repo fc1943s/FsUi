@@ -6,7 +6,7 @@ source https://nuget.pkg.github.com/fc1943s/index.json username: "%GITHUB_ACTOR%
 
 nuget FSharp.Core ~> 5.0
 
-nuget FsStore ~> 0.0.1 prerelease
+nuget FsStore prerelease
 
 // FsUi
 nuget Feliz.Router ~> 3.8
