@@ -62,8 +62,8 @@ module Accordion =
     [<ReactComponent>]
     let Accordion
         (input: {| Items: (ReactElement * ReactElement) list
-                   Value: string []
-                   SetValue: string [] -> unit
+                   Value: string list
+                   SetValue: string list -> unit
                    Props: Ui.IChakraProps -> unit |})
         =
         let titleArray =
@@ -110,7 +110,7 @@ module Accordion =
                 x.defaultIndex <- [||]
 
                 x.index <-
-                    let hiddenTitleSet = input.Value |> Set.ofArray
+                    let hiddenTitleSet = input.Value |> Set.ofList
 
                     titleArray
                     |> Array.indexed
@@ -144,7 +144,8 @@ module Accordion =
                                 newIndexes
                                 |> Array.map (fun index -> titleArray.[index])
 
-                            if newIndexes.Length > 0 then input.SetValue newHiddenTitles
+                            if newIndexes.Length > 0 then
+                                input.SetValue (newHiddenTitles |> Array.toList)
                         }
 
                 input.Props x)
@@ -163,7 +164,7 @@ module Accordion =
     [<ReactComponent>]
     let AccordionAtom
         (input: {| Items: (ReactElement * ReactElement) list
-                   Atom: AtomConfig<string []>
+                   Atom: AtomConfig<string list>
                    Props: Ui.IChakraProps -> unit |})
         =
         let atomValue, setAtomValue = Store.useState input.Atom
