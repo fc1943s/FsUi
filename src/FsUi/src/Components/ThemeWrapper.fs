@@ -12,7 +12,7 @@ open FsUi.Bindings
 module ThemeWrapper =
     [<ReactComponent>]
     let ThemeWrapper themeAtom children =
-        let theme = Store.useValue (themeAtom |> Option.defaultValue Store.emptyAtom)
+        let theme = Store.useValue (themeAtom |> Option.defaultValue Atom.empty)
         let darkMode = Store.useValue Atoms.Ui.darkMode
 
         let newTheme =

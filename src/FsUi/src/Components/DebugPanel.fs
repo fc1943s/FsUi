@@ -85,8 +85,8 @@ module DebugPanel =
         elif Dom.globalExit.Get () then 2000 // * 30
         else 0
 
-    let debugText = Atom.create (AtomType.Atom "")
-    let debugOldJson = Atom.create (AtomType.Atom "")
+    let debugText = Atom.Primitives.create (AtomType.Atom "")
+    let debugOldJson = Atom.Primitives.create (AtomType.Atom "")
 
     [<ReactComponent>]
     let DebugPanel display =
@@ -104,8 +104,7 @@ module DebugPanel =
                         ()
                     else
                         let newInterval = getSchedulingInterval deviceInfo
-                        if newInterval <> interval then
-                            setInterval newInterval
+                        if newInterval <> interval then setInterval newInterval
                 })
 
         Logger.logTrace (fun () -> $"{nameof FsUi} | DebugPanel [ render ] interval={interval} showDebug={showDebug} ")
