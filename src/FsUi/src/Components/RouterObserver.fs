@@ -9,7 +9,6 @@ open FsStore
 open FsStore.Model
 open FsStore.Hooks
 open FsStore.State
-open FsStore.Store.SyncEngine
 open FsUi.Bindings
 open Fable.Core.JsInterop
 open Microsoft.FSharp.Core.Operators
