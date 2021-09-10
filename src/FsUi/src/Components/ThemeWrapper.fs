@@ -1,5 +1,6 @@
 namespace FsUi.Components
 
+open FsCore
 open Fable.Core
 open FsStore
 open FsUi.State
@@ -25,7 +26,8 @@ module ThemeWrapper =
 
         //        printfn $"ThemeLoader newTheme={JS.JSON.stringify newTheme} theme={theme}"
 
-        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | ThemeWrapper [ render ] darkMode={darkMode}")
+        let getLocals () = $"darkMode={darkMode} {getLocals ()}"
+        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | ThemeWrapper [ render ] ") getLocals
 
         Ui.provider
             (fun x -> x.theme <- newTheme)

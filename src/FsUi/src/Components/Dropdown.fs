@@ -7,7 +7,6 @@ open FsStore.Hooks
 open Fable.React
 open Feliz
 open Fluke.UI.Frontend.Bindings
-open FsStore
 open FsUi.Bindings
 open FsUi.Hooks
 

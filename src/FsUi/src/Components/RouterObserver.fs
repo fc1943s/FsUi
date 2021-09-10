@@ -17,7 +17,7 @@ open Microsoft.FSharp.Core.Operators
 module RouterObserverWrapper =
     [<ReactComponent>]
     let rec RouterObserverWrapper children =
-        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | RouterObserverWrapper [ render ] ")
+        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | RouterObserverWrapper [ render ] ") getLocals
 
         let logger = Store.useValue Selectors.logger
         let alias = Store.useValue Selectors.Gun.alias
@@ -29,7 +29,9 @@ module RouterObserverWrapper =
 
         React.useEffect (
             (fun () ->
-                Profiling.addTimestamp (fun () -> $"{nameof FsUi} | RouterObserverWrapper [ render / useEffect ] ")
+                Profiling.addTimestamp
+                    (fun () -> $"{nameof FsUi} | RouterObserverWrapper [ render / useEffect ] ")
+                    getLocals
 
                 match Dom.window () with
                 | Some window ->
@@ -49,14 +51,14 @@ module RouterObserverWrapper =
                 (fun _ setter (newSegments: string list) ->
                     promise {
                         Profiling.addTimestamp
-                            (fun () -> $"{nameof FsUi} | RouterObserverWrapper [ render / onChange ]")
+                            (fun () -> $"{nameof FsUi} | RouterObserverWrapper / render / onChange")
+                            getLocals
 
                         if newSegments <> lastSegments.current then
-                            logger.Debug
-                                (fun () ->
-                                    $"RouterObserverWrapper. onChange 1.
-newSegments={JS.JSON.stringify newSegments}
-lastSegments.current={JS.JSON.stringify lastSegments.current} ")
+                            let getLocals () =
+                                $"newSegments={JS.JSON.stringify newSegments} lastSegments.current={JS.JSON.stringify lastSegments.current} {getLocals ()}"
+
+                            logger.Debug (fun () -> $"{nameof FsUi} | RouterObserverWrapper. onChange 1") getLocals
 
                             lastSegments.current <- newSegments
                             Atom.change setter Atoms.routeTrigger ((+) 1)
@@ -76,23 +78,28 @@ lastSegments.current={JS.JSON.stringify lastSegments.current} ")
                                         |> Some
                                     with
                                     | ex ->
+                                        let getLocals () =
+                                            $"ex={ex} newSegments={JS.JSON.stringify newSegments} {getLocals ()}"
+
                                         logger.Error
                                             (fun () ->
-                                                $"RouterObserverWrapper. onChange 3.
-error deserializing. ex={ex}
-newSegments={JS.JSON.stringify newSegments} ")
+                                                $"{nameof FsUi} | RouterObserverWrapper. onChange 3. error deserializing")
+                                            getLocals
 
                                         Some []
                                 | _ -> None
 
                             match messages with
-                            | Some [] -> logger.Error (fun () -> $"Invalid messages. newSegments={newSegments}")
+                            | Some [] ->
+                                let getLocals () =
+                                    $"newSegments={newSegments} {getLocals ()}"
+
+                                logger.Error (fun () -> $"{nameof FsUi} | Invalid messages") getLocals
                             | Some messages ->
-                                logger.Debug
-                                    (fun () ->
-                                        $"RouterObserverWrapper. onChange 2. saving messages.
-                                                  messages={messages}
-                                                  newSegments={JS.JSON.stringify newSegments} ")
+                                let getLocals () =
+                                    $"messages={messages} newSegments={JS.JSON.stringify newSegments} {getLocals ()}"
+
+                                logger.Debug (fun () -> $"{nameof FsUi} | RouterObserverWrapper. onChange 2. saving messages") getLocals
 
                                 match alias with
                                 | Some _ ->
@@ -100,10 +107,8 @@ newSegments={JS.JSON.stringify newSegments} ")
                                     |> List.iter
                                         (fun message ->
                                             let messageId = Hydrate.hydrateAppMessage setter message
-
-                                            logger.Debug
-                                                (fun () ->
-                                                    $"RouterObserverWrapper. message hydrated. messageId={messageId} "))
+                                            let getLocals () = $"messageId={messageId} {getLocals ()}"
+                                            logger.Debug (fun () -> $"{nameof FsUi} | RouterObserverWrapper. message hydrated") getLocals)
                                 | None ->
                                     let commands =
                                         messages
@@ -112,12 +117,12 @@ newSegments={JS.JSON.stringify newSegments} ")
                                             | Message.Command command -> Some command
                                             | _ -> None)
 
-
                                     let! events = consumeCommands commands
+                                    let getLocals () = $"events={events} {getLocals ()}"
 
                                     logger.Debug
-                                        (fun () ->
-                                            $"RouterObserverWrapper. no alias. consumed inline. events={events}  ")
+                                        (fun () -> $"{nameof FsUi} | RouterObserverWrapper. no alias. consumed inline")
+                                        getLocals
 
                                 Router.navigatePath [||]
                             | None -> Router.navigatePath [||]
@@ -127,9 +132,12 @@ newSegments={JS.JSON.stringify newSegments} ")
             (nameof RouterObserverWrapper, deviceInfo.DeviceId)
             (fun _getter _setter ->
                 promise {
+                    let getLocals () =
+                        $"location.href={Browser.Dom.window.location.href} {getLocals ()}"
+
                     Profiling.addTimestamp
-                        (fun () ->
-                            $"{nameof FsUi} | RouterObserverWrapper [ render / useHashedEffectOnce ] location.href={Browser.Dom.window.location.href}")
+                        (fun () -> $"{nameof FsUi} | RouterObserverWrapper / render / useHashedEffectOnce")
+                        getLocals
 
                     match Browser.Dom.window.location.hash with
                     | null

@@ -1,5 +1,6 @@
 namespace FsUi.Hooks
 
+open FsCore
 open Browser.Types
 open Feliz
 open FsStore
@@ -13,7 +14,7 @@ open FsJs
 
 module Listener =
     let inline useKeyPress keys (fn: Getter<obj> -> Setter<obj> -> KeyboardEvent -> JS.Promise<unit>) =
-        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | useKeyPress [ render ] ")
+        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | useKeyPress [ render ] ") getLocals
 
         let keyEvent = Store.useCallbackRef fn
 
@@ -35,6 +36,7 @@ module Listener =
                 (fun (_elemRef: IRefValue<_>) ->
                     Profiling.addTimestamp
                         (fun () -> $"{nameof FsUi} | refHoveredAtomFamily [ atomFamily.defaultValueFn(k) ] ")
+                        getLocals
 
                     printfn "refHoveredAtomFamily. returning defatul"
                     false)

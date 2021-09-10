@@ -1,5 +1,6 @@
 namespace FsUi.Bindings
 
+open FsCore
 open Fable.Core
 open Fable.React
 open Browser.Types
@@ -63,7 +64,7 @@ module React =
 
     [<ReactComponent>]
     let ErrorBoundary cmp =
-        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | ErrorBoundary [ render ] ")
+        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | ErrorBoundary [ render ] ") getLocals
 
         React.strictMode [
             //            Recoil.root [

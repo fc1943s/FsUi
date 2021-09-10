@@ -1,5 +1,6 @@
 namespace FsUi.Components
 
+open FsCore
 open Feliz
 open FsStore
 open FsStore.Hooks
@@ -20,7 +21,10 @@ module GunObserver =
         let store = Store.useStore ()
         let isMountedRef = React.useIsMountedRef ()
 
-        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | GunObserver [ render ] isMountedRef={isMountedRef.current}")
+        let getLocals () =
+            $"isMountedRef={isMountedRef.current} {getLocals ()}"
+
+        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | GunObserver / render") getLocals
 
         // TODO: arr deps warning is not working with files in this package (only on template main)
         React.useEffect (
@@ -38,13 +42,16 @@ module GunObserver =
                                 Profiling.addTimestamp
                                     (fun () ->
                                         $"{nameof FsUi} | GunObserver [ render / useEffect / setTimeout ] triggering.")
+                                    getLocals
 
                                 Atom.change setter Atoms.gunTrigger ((+) 1)
                                 Atom.change setter Atoms.hubTrigger ((+) 1)
 
-                                logger.Debug (fun () -> "GunObserver.render. triggered.  ")
+                                logger.Debug (fun () -> $"{nameof FsUi} | GunObserver.render. triggered") getLocals
                             else
-                                logger.Debug (fun () -> "GunObserver.render. already disposed")
+                                logger.Debug
+                                    (fun () -> $"{nameof FsUi} | GunObserver.render. already disposed")
+                                    getLocals
                         }
                         |> Promise.start
                         //                                )

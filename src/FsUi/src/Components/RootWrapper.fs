@@ -1,5 +1,6 @@
 namespace FsUi.Components
 
+open FsCore
 open FsStore
 open Fable.React
 open Feliz
@@ -11,7 +12,7 @@ open FsUi.Bindings
 module RootWrapper =
     [<ReactComponent>]
     let RootWrapper themeAtom children =
-        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | RootWrapper [ render ] ")
+        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | RootWrapper / render") getLocals
 
         React.strictMode [
             Jotai.jotai.provider [
@@ -19,6 +20,7 @@ module RootWrapper =
                     [
                         React.ErrorBoundary [
                             GunObserver.GunObserver ()
+                            ToastObserver.ToastObserver ()
                             RouterObserverWrapper.RouterObserverWrapper [
                                 ThemeWrapper.ThemeWrapper
                                     themeAtom

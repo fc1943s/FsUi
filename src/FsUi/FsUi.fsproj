@@ -4,7 +4,7 @@
         <TargetFramework>net6.0</TargetFramework>
         <LangVersion>preview</LangVersion>
         <PackageId>FsUi</PackageId>
-        <Version>0.0.1-alpha.6</Version>
+        <Version>0.0.1-alpha.7</Version>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="src\Bindings\Vendor\ReactIcons.fs" />
@@ -16,10 +16,10 @@
         <Compile Include="src\Model.fs" />
         <Compile Include="src\State\Atoms\Ui.fs" />
         <Compile Include="src\State\Selectors\Ui.fs" />
+        <Compile Include="src\State\Actions.fs" />
         <Compile Include="src\Hooks\React.fs" />
         <Compile Include="src\Hooks\Scheduling.fs" />
         <Compile Include="src\Hooks\Listener.fs" />
-        <Compile Include="src\Hooks\Hydrate.fs" />
         <Compile Include="src\Components\Accordion.fs" />
         <Compile Include="src\Components\Empty.fs" />
         <Compile Include="src\Components\Tooltip.fs" />
@@ -43,6 +43,7 @@
         <Compile Include="src\Components\ExternalLink.fs" />
         <Compile Include="src\Components\TransparentIconButton.fs" />
         <Compile Include="src\Components\RouterObserver.fs" />
+        <Compile Include="src\Components\ToastObserver.fs" />
         <Compile Include="src\Components\ThemeWrapper.fs" />
         <Compile Include="src\Components\GunObserver.fs" />
         <Compile Include="src\Components\RootWrapper.fs" />
