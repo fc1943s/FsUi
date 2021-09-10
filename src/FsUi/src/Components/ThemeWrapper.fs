@@ -26,7 +26,7 @@ module ThemeWrapper =
 
         //        printfn $"ThemeLoader newTheme={JS.JSON.stringify newTheme} theme={theme}"
 
-        let getLocals () = $"darkMode={darkMode} {getLocals ()}"
+        let inline getLocals () = $"darkMode={darkMode} {getLocals ()}"
         Profiling.addTimestamp (fun () -> $"{nameof FsUi} | ThemeWrapper [ render ] ") getLocals
 
         Ui.provider

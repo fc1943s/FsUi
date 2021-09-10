@@ -107,7 +107,7 @@ module DebugPanel =
                         if newInterval <> interval then setInterval newInterval
                 })
 
-        let getLocals () =
+        let inline getLocals () =
             $"interval={interval} showDebug={showDebug} {getLocals ()}"
 
         Logger.logTrace (fun () -> $"{nameof FsUi} | DebugPanel / render") getLocals

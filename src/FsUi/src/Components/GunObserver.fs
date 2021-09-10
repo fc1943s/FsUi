@@ -21,7 +21,7 @@ module GunObserver =
         let store = Store.useStore ()
         let isMountedRef = React.useIsMountedRef ()
 
-        let getLocals () =
+        let inline getLocals () =
             $"isMountedRef={isMountedRef.current} {getLocals ()}"
 
         Profiling.addTimestamp (fun () -> $"{nameof FsUi} | GunObserver / render") getLocals
