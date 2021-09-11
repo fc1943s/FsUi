@@ -21,6 +21,7 @@ module RootWrapper =
                         React.ErrorBoundary [
                             GunObserver.GunObserver ()
                             ToastObserver.ToastObserver ()
+                            MessagesListener.MessagesListener ()
                             RouterObserverWrapper.RouterObserverWrapper [
                                 ThemeWrapper.ThemeWrapper
                                     themeAtom
