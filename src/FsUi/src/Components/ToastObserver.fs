@@ -15,7 +15,7 @@ module ToastObserver =
     [<ReactComponent>]
     let ToastObserver () =
         let toast = Ui.useToast ()
-        let deviceInfo = Store.useValue Selectors.deviceInfo
+        let deviceInfo = Store.useValue Selectors.Store.deviceInfo
         let appState, setAppState = Store.useState (Atoms.Device.appState deviceInfo.DeviceId)
 
         React.useEffect (

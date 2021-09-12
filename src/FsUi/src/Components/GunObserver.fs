@@ -16,7 +16,7 @@ module GunObserver =
 
     [<ReactComponent>]
     let GunObserver () =
-        let logger = Store.useValue Selectors.logger
+        let logger = Store.useValue Selectors.Store.logger
         let gun = Store.useValue Selectors.Gun.gun
         let store = Store.useStore ()
         let isMountedRef = React.useIsMountedRef ()

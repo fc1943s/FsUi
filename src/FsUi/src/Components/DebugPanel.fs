@@ -90,7 +90,7 @@ module DebugPanel =
 
     [<ReactComponent>]
     let DebugPanel display =
-        let deviceInfo = Store.useValue Selectors.deviceInfo
+        let deviceInfo = Store.useValue Selectors.Store.deviceInfo
         let showDebug = Store.useValue Atoms.showDebug
 
         let interval, setInterval = React.useState (getSchedulingInterval deviceInfo)
@@ -209,7 +209,7 @@ module DebugPanel =
                                 GunPeersIndicator ()
                                 UiStateIndicator ()
                                 str text
-                                ValueIndicator (nameof Selectors.deviceInfo) Selectors.deviceInfo
+                                ValueIndicator (nameof Selectors.Store.deviceInfo) Selectors.Store.deviceInfo
                             ]
                 ]
         ]

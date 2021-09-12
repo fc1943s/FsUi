@@ -19,10 +19,10 @@ module RouterObserverWrapper =
     let rec RouterObserverWrapper children =
         Profiling.addTimestamp (fun () -> $"{nameof FsUi} | RouterObserverWrapper [ render ] ") getLocals
 
-        let logger = Store.useValue Selectors.logger
+        let logger = Store.useValue Selectors.Store.logger
         let alias = Store.useValue Selectors.Gun.alias
 
-        let deviceInfo = Store.useValue Selectors.deviceInfo
+        let deviceInfo = Store.useValue Selectors.Store.deviceInfo
         let lastSegments = React.useRef []
         let appState = Store.useValue (Atoms.Device.appState deviceInfo.DeviceId)
         let consumeCommands = Store.useCallbackRef (Engine.consumeCommands Messaging.appUpdate appState)
@@ -99,7 +99,9 @@ module RouterObserverWrapper =
                                 let getLocals () =
                                     $"messages={messages} newSegments={JS.JSON.stringify newSegments} {getLocals ()}"
 
-                                logger.Debug (fun () -> $"{nameof FsUi} | RouterObserverWrapper. onChange 2. saving messages") getLocals
+                                logger.Debug
+                                    (fun () -> $"{nameof FsUi} | RouterObserverWrapper. onChange 2. saving messages")
+                                    getLocals
 
                                 match alias with
                                 | Some _ ->
@@ -108,7 +110,10 @@ module RouterObserverWrapper =
                                         (fun message ->
                                             let messageId = Hydrate.hydrateAppMessage setter message
                                             let getLocals () = $"messageId={messageId} {getLocals ()}"
-                                            logger.Debug (fun () -> $"{nameof FsUi} | RouterObserverWrapper. message hydrated") getLocals)
+
+                                            logger.Debug
+                                                (fun () -> $"{nameof FsUi} | RouterObserverWrapper. message hydrated")
+                                                getLocals)
                                 | None ->
                                     let commands =
                                         messages
