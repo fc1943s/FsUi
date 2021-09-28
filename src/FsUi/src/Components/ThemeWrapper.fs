@@ -13,7 +13,11 @@ open FsUi.Bindings
 module ThemeWrapper =
     [<ReactComponent>]
     let ThemeWrapper themeAtom children =
-        let theme = Store.useValue (themeAtom |> Option.defaultValue Atom.empty)
+        let atom =
+            themeAtom
+            |> Option.defaultValue (unbox Atom.empty)
+
+        let theme = Store.useValue atom
 
         let newTheme =
             React.useMemo (
