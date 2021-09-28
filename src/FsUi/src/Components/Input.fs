@@ -9,7 +9,6 @@ open FsCore
 open Fable.React
 open Feliz
 open FsJs
-open FsStore
 open FsUi.Bindings
 open Fable.Core
 

@@ -14,23 +14,24 @@ module ThemeWrapper =
     [<ReactComponent>]
     let ThemeWrapper themeAtom children =
         let theme = Store.useValue (themeAtom |> Option.defaultValue Atom.empty)
-        let darkMode = Store.useValue Atoms.Ui.darkMode
 
         let newTheme =
             React.useMemo (
-                (fun () -> Ui.react.extendTheme (JsInterop.toPlainJsObj ({|  |} ++ theme))),
+                (fun () ->
+                    let jsObj = JsInterop.toPlainJsObj ({|  |} ++ theme)
+                    let newTheme = Ui.react.extendTheme jsObj
+
+                    let inline getLocals () =
+                        $"theme={JS.JSON.stringify theme} jsObj={JS.JSON.stringify jsObj} newTheme={JS.JSON.stringify newTheme} {getLocals ()}"
+
+                    Logger.logTrace (fun () -> $"{nameof FsUi} | ThemeWrapper [ render ] ") getLocals
+                    newTheme),
                 [|
                     box theme
                 |]
             )
 
-        //        printfn $"ThemeLoader newTheme={JS.JSON.stringify newTheme} theme={theme}"
-
-        let inline getLocals () = $"darkMode={darkMode} {getLocals ()}"
-        Profiling.addTimestamp (fun () -> $"{nameof FsUi} | ThemeWrapper [ render ] ") getLocals
-
-        let inline getLocals () = $"newTheme={newTheme} {getLocals ()}"
-        Logger.logTrace (fun () -> $"{nameof FsUi} | ThemeWrapper [ render ] ") getLocals
+        let darkMode = Store.useValue Atoms.Ui.darkMode
 
         Ui.provider
             (fun x -> x.theme <- newTheme)
