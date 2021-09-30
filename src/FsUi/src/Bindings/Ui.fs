@@ -122,6 +122,7 @@ module Ui =
         abstract paddingLeft : string with get, set
         abstract paddingRight : string with get, set
         abstract paddingTop : string with get, set
+        abstract placeItems : string with get, set
         abstract placeContent : string with get, set
         abstract placeholder : string with get, set
         abstract placement : string with get, set
