@@ -128,8 +128,7 @@ module Dropdown =
                             x.padding <- "1px"
                             x.marginBottom <- "6px"
                             x.maxHeight <- "217px"
-                            x.overflowY <- "auto"
-                            x.flexBasis <- 0)
+                            x.overflowY <- "auto")
                         [
                             yield!
                                 Enum.ToList<'T> ()
