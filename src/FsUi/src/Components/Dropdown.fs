@@ -123,7 +123,6 @@ module Dropdown =
                 [
                     Ui.stack
                         (fun x ->
-                            x.flex <- "1"
                             x.spacing <- "1px"
                             x.padding <- "1px"
                             x.marginBottom <- "6px"
@@ -184,9 +183,7 @@ module Dropdown =
                     fun onHide ->
                         [
                             Ui.stack
-                                (fun x ->
-                                    x.spacing <- "10px"
-                                    x.flex <- "1")
+                                (fun x -> x.spacing <- "10px")
                                 [
                                     yield! children onHide
 
