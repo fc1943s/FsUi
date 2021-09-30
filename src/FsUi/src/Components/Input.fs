@@ -206,9 +206,7 @@ module Input =
             )
 
         Ui.stack
-            (fun x ->
-                x.spacing <- "5px"
-                x.flex <- "1")
+            (fun x -> x.spacing <- "5px")
             [
                 match props.label with
                 | null -> nothing
