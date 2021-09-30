@@ -38,6 +38,7 @@ module Input =
         abstract onEnterPress : (_ -> JS.Promise<unit>) option with get, set
         abstract inputFormat : InputFormat option with get, set
         abstract rightButton : ReactElement option with get, set
+        abstract containerProps : (Ui.IChakraProps -> unit) option with get, set
 
 
     [<ReactComponent>]
@@ -206,7 +207,12 @@ module Input =
             )
 
         Ui.stack
-            (fun x -> x.spacing <- "5px")
+            (fun x ->
+                x.spacing <- "5px"
+
+                match customProps.containerProps with
+                | Some containerProps -> containerProps x
+                | None -> ())
             [
                 match props.label with
                 | null -> nothing
