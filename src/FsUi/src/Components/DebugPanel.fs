@@ -41,16 +41,20 @@ module DebugPanel =
             ]
 
     [<ReactComponent>]
-    let GunOptionsIndicator () =
-        ValueIndicator (nameof Atoms.gunOptions) Atoms.gunOptions
+    let GunSyncIndicator () =
+        ValueIndicator (nameof Atoms.gunSync) Atoms.gunSync
 
     [<ReactComponent>]
     let GunPeersIndicator () =
         ValueIndicator (nameof Selectors.Gun.gunPeers) Selectors.Gun.gunPeers
 
     [<ReactComponent>]
-    let HubUrlIndicator () =
-        ValueIndicator (nameof Atoms.hubUrl) Atoms.hubUrl
+    let HubSyncIndicator () =
+        ValueIndicator (nameof Atoms.hubSync) Atoms.hubSync
+
+    [<ReactComponent>]
+    let HubUrlsIndicator () =
+        ValueIndicator (nameof Atoms.hubUrls) Atoms.hubUrls
 
     [<ReactComponent>]
     let UiStateIndicator () =
@@ -204,9 +208,10 @@ module DebugPanel =
                                 PrivateKeysIndicator ()
                                 SessionRestoredIndicator ()
                                 ShowDebugIndicator ()
-                                HubUrlIndicator ()
-                                GunOptionsIndicator ()
+                                GunSyncIndicator ()
                                 GunPeersIndicator ()
+                                HubSyncIndicator ()
+                                HubUrlsIndicator ()
                                 UiStateIndicator ()
                                 str text
                                 ValueIndicator (nameof Selectors.Store.deviceInfo) Selectors.Store.deviceInfo

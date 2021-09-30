@@ -11,7 +11,6 @@ open FsUi.Bindings
 open FsUi.Hooks
 
 
-
 module Dropdown =
     [<ReactComponent>]
     let Dropdown
@@ -25,6 +24,7 @@ module Dropdown =
 
         Ui.flex
             (fun x ->
+                x.flex <- "1"
                 x.direction <- "column"
                 x.overflow <- "auto"
                 x.padding <- "1px")
@@ -37,7 +37,7 @@ module Dropdown =
                 if not visible then
                     nothing
                 else
-                    Ui.box
+                    Ui.flex
                         (fun x ->
                             x.flex <- "1"
                             x.flexDirection <- "column"
@@ -184,12 +184,14 @@ module Dropdown =
                     fun onHide ->
                         [
                             Ui.stack
-                                (fun x -> x.spacing <- "10px")
+                                (fun x ->
+                                    x.spacing <- "10px"
+                                    x.flex <- "1")
                                 [
                                     yield! children onHide
 
-                                    Ui.box
-                                        (fun _ -> ())
+                                    Ui.flex
+                                        (fun x -> x.flex <- "1")
                                         [
                                             Button.Button
                                                 {|
