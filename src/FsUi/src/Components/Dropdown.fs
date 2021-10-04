@@ -26,7 +26,6 @@ module Dropdown =
             (fun x ->
                 x.flex <- "1"
                 x.direction <- "column"
-                x.overflow <- "auto"
                 x.padding <- "1px"
                 x.minWidth <- "100px")
             [
@@ -127,8 +126,7 @@ module Dropdown =
                             x.spacing <- "1px"
                             x.padding <- "1px"
                             x.marginBottom <- "6px"
-                            x.maxHeight <- "217px"
-                            x.overflowY <- "auto")
+                            x.maxHeight <- "217px")
                         [
                             yield!
                                 Enum.ToList<'T> ()
