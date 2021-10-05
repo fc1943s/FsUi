@@ -27,7 +27,7 @@ module Dropdown =
                 x.flex <- "1"
                 x.direction <- "column"
                 x.padding <- "1px"
-                x.minWidth <- "100px")
+                x.minWidth <- "120px")
             [
                 Tooltip.wrap
                     (str input.Tooltip)
